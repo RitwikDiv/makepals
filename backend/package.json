@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for makepals app which takes input from the user and creates a discord channel in the server. It automatics cleans up the purges empty rooms and monitors the behavior of members",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "backend",
+    "discordjs",
+    "channel monitor",
+    "member management"
+  ],
+  "author": "Ritwik Divakaruni",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.3.3",
+    "discord.js": "^12.5.1",
+    "express": "^4.17.1",
+    "joi": "^17.4.0",
+    "mongoose": "^5.11.17"
+  }
+}
