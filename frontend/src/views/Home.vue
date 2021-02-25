@@ -4,7 +4,7 @@
       <div class="d-flex flex-wrap align-items-center">
         <div class="col-sm mr-1 justify-content-left">
           <img
-            :src="image"
+            :src="images.mainImage"
             class="illustration"
             alt="Illustration of me working"
           />
@@ -26,20 +26,7 @@
         <div class="card">
           <div class="card-header">
             <strong>Voice Channel </strong>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="#28a745"
-              class="bi bi-mic-fill"
-              viewBox="0 0 16 16"
-            >
-              <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
-              <path
-                fill-rule="evenodd"
-                d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"
-              />
-            </svg>
+            <VoiceChannelLogo />
           </div>
           <div class="card-body">
             <h5 class="card-title">WandaVision Discussion</h5>
@@ -72,18 +59,7 @@
         <div class="card">
           <div class="card-header">
             <strong>Text Channel </strong>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="#6f42c1"
-              class="bi bi-chat-dots-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
-              />
-            </svg>
+            <TextChannelLogo />
           </div>
           <div class="card-body">
             <h5 class="card-title">Among Us Gaming Party</h5>
@@ -122,18 +98,7 @@
         <div class="card">
           <div class="card-header">
             <strong>Text Channel </strong>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="#6f42c1"
-              class="bi bi-chat-dots-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
-              />
-            </svg>
+            <TextChannelLogo />
           </div>
           <div class="card-body">
             <h5 class="card-title">Obama's Promised Land</h5>
@@ -168,11 +133,18 @@
 </template>
 
 <script>
+import TextChannelLogo from "../assets/svgs/TextChannelLogo.vue";
+import VoiceChannelLogo from "../assets/svgs/VoiceChannelLogo.vue";
+
 export default {
   name: "Home",
+  components: {
+    TextChannelLogo,
+    VoiceChannelLogo,
+  },
   data() {
     return {
-      image: require("@/assets/images/mainImage.png"),
+      images: { mainImage: require("@/assets/images/mainImage.png") },
     };
   },
 };
