@@ -3,8 +3,9 @@
     <div class="container">
       <div class="row justify-content-md-center">
         <div class="col col-lg">
-          <a class="mr-4 text-muted" href="#about">About </a>
-          <a class="mr-4 text-muted" href="#code">Code of Conduct </a>
+          <router-link to="/conduct" class="mr-4 text-muted">
+            <strong>Code of Conduct</strong></router-link
+          >
         </div>
         <div class="col col-lg">
           <a

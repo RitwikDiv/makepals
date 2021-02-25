@@ -1,13 +1,14 @@
 <template>
   <div id="d-flex flex-row">
     <Navbar />
+    <router-view />
     <Footer />
   </div>
 </template>
 
 <script>
 import Navbar from "./components/Navbar.vue";
-import Footer from "./components/Footer.vue";
+import Footer from "./components/Footer";
 
 export default {
   name: "App",
@@ -19,15 +20,12 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap");
 #app {
-  font-family: "Poppins", sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  border-top-style: solid;
-  border-width: 6px;
-  border-color: #4f359b;
+  margin-bottom: 25px;
 }
 </style>
