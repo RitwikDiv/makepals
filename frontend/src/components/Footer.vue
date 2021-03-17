@@ -44,7 +44,7 @@
           ></a>
           <a
             class="icon"
-            :href="twitter"
+            :href="discord"
             target="_blank"
             rel="noopener noreferrer"
             ><svg
@@ -73,9 +73,9 @@ export default {
   name: "Footer",
   data() {
     return {
-      github: "",
-      linkedin: "",
-      twitter: "",
+      github: "https://github.com/RitwikDiv/makepals",
+      discord: "",
+      twitter: "https://twitter.com/ritwikdiv",
     };
   },
 };

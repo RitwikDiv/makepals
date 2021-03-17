@@ -85,7 +85,9 @@
       <div class="form-group justify-content-center">
         <input type="checkbox" v-model="checked" />
         <label class="ml-4 text-muted" for="categorySelection">
-          <strong>I agree to adheer to the code of conduct</strong></label
+          <strong
+            >I have read and I agree with the code of conduct</strong
+          ></label
         >
       </div>
       <router-link
