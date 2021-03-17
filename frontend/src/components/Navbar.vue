@@ -17,11 +17,6 @@
           /></svg
       ></router-link>
     </h2>
-    <nav class="my-4 my-md-4">
-      <a class="btn btn-outline-dark nav-item p-2" role="button" href=""
-        >Create Room
-      </a>
-    </nav>
   </div>
 </template>
 
