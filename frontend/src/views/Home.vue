@@ -22,7 +22,25 @@
       <br />
       <hr />
       <br />
-      <div class="card-deck card-columns">
+      <div class="card-columns xl">
+        <div class="card">
+          <div class="card-body text-align-center">
+            <h5 class="card-title">Create Room</h5>
+            <p class="card-text">
+              Create a room and meet people who share your passion and
+              interests!
+            </p>
+            <router-link to="/create">
+              <a
+                href=""
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-outline-dark btn-sm"
+                ><strong>Create</strong></a
+              >
+            </router-link>
+          </div>
+        </div>
         <div class="card" v-for="room in rooms" :key="room.id">
           <div v-if="room.type == 'text'"><TextChannel /></div>
           <div v-if="room.type == 'voice'"><VoiceChannel /></div>
@@ -96,6 +114,24 @@ export default {
           category: "entertainment",
           channelLink: "",
         },
+        {
+          id: 4,
+          title: "WandaVision Discussion",
+          desc:
+            "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
+          type: "voice",
+          category: "entertainment",
+          channelLink: "",
+        },
+        {
+          id: 5,
+          title: "WandaVision Discussion",
+          desc:
+            "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
+          type: "voice",
+          category: "entertainment",
+          channelLink: "",
+        },
       ],
     };
   },
@@ -126,5 +162,14 @@ export default {
 .title-content {
   text-align: start;
   font-weight: 500;
+}
+
+.card-columns {
+  @include media-breakpoint-only(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 5;
+  }
 }
 </style>
