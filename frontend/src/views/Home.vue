@@ -24,7 +24,7 @@
       <hr />
       <br />
       <br />
-      <div class="card-columns xl justify-content-center">
+      <div class="card-columns justify-content-center">
         <div class="card">
           <div class="card-body text-align-center">
             <h5 class="card-title">Create Room</h5>
@@ -120,7 +120,7 @@ export default {
           channelLink: "",
         },
         {
-          id: 4,
+          id: 3,
           title: "WandaVision Discussion",
           desc:
             "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
@@ -129,12 +129,58 @@ export default {
           channelLink: "",
         },
         {
-          id: 5,
+          id: 3,
           title: "WandaVision Discussion",
           desc:
             "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
           type: "voice",
-          category: "random",
+          category: "entertainment",
+          channelLink: "",
+        },
+        {
+          id: 3,
+          title: "WandaVision Discussion",
+          desc:
+            "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
+          type: "voice",
+          category: "entertainment",
+          channelLink: "",
+        },
+        {
+          id: 3,
+          title: "WandaVision Discussion",
+          desc:
+            "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
+          type: "voice",
+          category: "entertainment",
+          channelLink: "",
+        },
+        {
+          id: 3,
+          title: "WandaVision Discussion",
+          desc:
+            "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
+          type: "voice",
+          category: "entertainment",
+          channelLink: "",
+        },
+        {
+          id: 1,
+          title: "Among us Party",
+          desc:
+            "Tired of playing among us alone with random people on the internet? Join this chat and meet new people while playing the game!",
+          type: "voice",
+          category: "gaming",
+          channelLink:
+            "https://discord.com/channels/812457952052903937/812524975356903495",
+        },
+        {
+          id: 2,
+          title: "Obama's Promised Land",
+          desc:
+            "Join the chat and talk about Barack Obama's views and observations conveyed in the book Promised land!",
+          type: "text",
+          category: "reading",
           channelLink: "",
         },
       ],
