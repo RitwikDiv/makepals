@@ -12,11 +12,11 @@
         <div class="col-sm mt-4">
           <h2 class="title-head text-dark">Create a Room!</h2>
           <p class="title-content mr-4">
-            Create a room and start talking about things you love. Feel free to
-            share the link and room's name with your friends to let them join.
-            Be kind to people and feel free to add them to your friend's list
-            with their consent (It may be hard to find them once your room
-            closes). What you should know about the channels:
+            Create a room by filling the form below. Feel free to share the link
+            your friends to let them join. Be kind to people and feel free to
+            add them to your friend's list with their consent (It may be hard to
+            find them once your room closes). What you should know about the
+            channels:
           </p>
           <ul class="title-content">
             <li>Voice Channels are purged within 10 minutes of inactivity</li>

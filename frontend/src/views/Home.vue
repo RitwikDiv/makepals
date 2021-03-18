@@ -14,8 +14,7 @@
           <p class="title-content mr-4">
             MakePals is an online community where you can create rooms to meet
             people and talk about things you love. Its truly as simple as that!
-            Create a room and just wait for the people to pour in. The rooms
-            will self-destruct if they are empty for longer than a few minutes.
+            Create a room and just wait for the people to pour in.
           </p>
         </div>
       </div>
