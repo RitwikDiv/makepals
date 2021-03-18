@@ -20,7 +20,9 @@
         </div>
       </div>
       <br />
+      <br />
       <hr />
+      <br />
       <br />
       <div class="card-columns xl justify-content-center">
         <div class="card">
@@ -51,6 +53,7 @@
               <EntertainmentLogo />
             </div>
             <div v-if="room.category == 'reading'"><ReadingLogo /></div>
+            <div v-if="room.category == 'random'"><RandomLogo /></div>
             <p class="card-text">{{ room.desc }}</p>
             <a
               :href="room.channelLink"
@@ -72,6 +75,7 @@ import VoiceChannel from "../assets/svgs/channel/VoiceChannel.vue";
 import ReadingLogo from "../assets/svgs/category/ReadingLogo.vue";
 import EntertainmentLogo from "../assets/svgs/category/EntertainmentLogo.vue";
 import GamingLogo from "../assets/svgs/category/GamingLogo.vue";
+import RandomLogo from "../assets/svgs/category/RandomLogo.vue";
 
 export default {
   name: "Home",
@@ -81,6 +85,7 @@ export default {
     ReadingLogo,
     EntertainmentLogo,
     GamingLogo,
+    RandomLogo,
   },
   data() {
     return {
@@ -129,7 +134,7 @@ export default {
           desc:
             "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
           type: "voice",
-          category: "entertainment",
+          category: "random",
           channelLink: "",
         },
       ],
