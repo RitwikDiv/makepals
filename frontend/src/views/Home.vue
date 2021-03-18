@@ -22,7 +22,7 @@
       <br />
       <hr />
       <br />
-      <div class="card-columns xl">
+      <div class="card-columns xl justify-content-center">
         <div class="card">
           <div class="card-body text-align-center">
             <h5 class="card-title">Create Room</h5>

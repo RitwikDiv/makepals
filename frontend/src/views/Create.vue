@@ -16,49 +16,65 @@
             share the link and room's name with your friends to let them join.
             Be kind to people and feel free to add them to your friend's list
             with their consent (It may be hard to find them once your room
-            closes). Have fun!
+            closes). What you should know about the channels:
           </p>
+          <ul class="title-content">
+            <li>Voice Channels are purged within 10 minutes of inactivity</li>
+            <li>Text Channels are purged within a day of inactivity</li>
+          </ul>
         </div>
       </div>
     </div>
     <br />
+    <br />
     <hr />
+    <br />
+    <span v-html="roomMessage"></span>
+    <br />
+    <hr />
+    <br />
     <br />
     <form id="roomDetails">
       <div class="form-group">
-        <label for="titleField" class="col-sm-2"><strong>Title</strong></label>
+        <label for="titleField" class="col-sm-2 p-2" required
+          ><strong>Title</strong></label
+        >
         <input
-          class="ml-2 text-muted col-sm-3"
+          class="col-sm-6 shadow p-2 bg-body rounded border border-light"
           id="titleField"
           type="text"
           v-model="roomDetails.title"
+          placeholder="Enter Room Title"
+          required
         />
       </div>
       <div class="form-group">
-        <label class="col-sm-2" for="categorySelection">
+        <label class="col-sm-2 p-2" for="categorySelection">
           <strong>Category</strong></label
         >
         <select
-          class="ml-2 col-sm-3"
+          class="col-sm-6 shadow p-2 bg-body rounded border border-light"
           id="categorySelection"
           v-model="roomDetails.category"
         >
           <option value="entertainment">Entertainment</option>
           <option value="gaming">Gaming</option>
           <option value="reading">Reading</option>
-          <option value="other">Other</option>
+          <option value="random">Random</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="descTextArea" class="col-sm-2 align-top">
+        <label for="descTextArea" class="col-sm-2 align-top p-2">
           <strong>Description</strong></label
         >
         <textarea
           type="text"
-          class="ml-2 text-muted col-sm-3"
+          class="col-sm-6 shadow p-2 bg-body rounded border border-light"
           id="descTextArea"
-          rows="4"
+          rows="3"
           v-model="roomDetails.desc"
+          placeholder="Describe the room (Make it fun and inclusive!)"
+          required
         />
       </div>
       <div class="form-group justify-content-center">
@@ -84,20 +100,19 @@
       </div>
       <div class="form-group justify-content-center">
         <input type="checkbox" v-model="checked" />
-        <label class="ml-4 text-muted" for="categorySelection">
+        <label class="ml-3 text-muted" for="categorySelection">
           <strong
             >I have read and I agree with the code of conduct</strong
           ></label
         >
       </div>
-      <router-link
-        to="/home"
+      <button
         type="submit"
-        v-bind:class="checked ? btn.activeClass : btn.errorClass"
-        @click="logRoom"
+        v-bind:class="buttonStatus ? btn.activeClass : btn.errorClass"
+        @click="validateRoom"
       >
         <strong>Submit</strong>
-      </router-link>
+      </button>
     </form>
   </div>
 </template>
@@ -106,9 +121,22 @@
 export default {
   name: "Conduct",
   methods: {
-    logRoom: function () {
-      console.log(this.roomDetails);
-      this.submitStatus = false;
+    validateRoom: function () {
+      if (
+        this.roomDetails.title.length != 0 &&
+        this.roomDetails.desc.length != 0
+      ) {
+        this.validated = true;
+      }
+      if (this.validated == true) {
+        this.roomMessage = `<h5><strong>Your <span class="text-danger">${this.roomDetails.category}</span> themed <span class="text-warning">${this.roomDetails.title}</span> room is ready! Join 
+        <a target="_blank" rel="noopener noreferrer" href="${this.roomDetails.link}"> here </a></strong></h5>`;
+      }
+    },
+  },
+  computed: {
+    buttonStatus: function () {
+      return this.checked && this.validated;
     },
   },
   data() {
@@ -118,14 +146,16 @@ export default {
         title: "",
         desc: "",
         type: "text",
-        category: "gaming",
+        category: "random",
+        link: "",
       },
       checked: false,
+      validated: false,
       btn: {
         activeClass: "btn btn-outline-dark mt-1 mb-4",
         errorClass: "btn btn-outline-dark mt-1 mb-4 disabled",
       },
-      submitStatus: true,
+      roomMessage: `<h5><strong>You haven't created any rooms yet!</strong></h5>`,
     };
   },
 };
