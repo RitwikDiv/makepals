@@ -7,12 +7,6 @@ require("dotenv").config();
 // Import the discord.js module and create a client
 const Discord = require('discord.js');
 const client = new Discord.Client();
-client.login(process.env.BOT_SECRET);
-
-client.on('ready', () => {
-    console.log("Discord Client is listening!");
-});
-
 
 // Import results from models
 const { roomSchema, validateRoom } = require('../models/rooms');
@@ -32,7 +26,7 @@ router.get('/', async (req, res) => {
 // Create a room 
 router.post('/', async (req, res) => {
     const { error } = validateRoom(req.body);
-    if (error) return res.sendStatus(400).send(error.details[0].message);
+    if (error) return res.status(400).send(error.details[0].message);
     var link, discord_channel_id;
     // Create a discord room
     try {
@@ -58,7 +52,7 @@ router.post('/', async (req, res) => {
             await channel.send(embed);
         }
     } catch (e) {
-        res.sendStatus(500).send(e);
+        res.status(500).send(e);
     }
     // Add the room to the database
     let room = new Room({
@@ -96,4 +90,5 @@ router.delete('/:id', async (req, res) => {
 });
 
 
-module.exports = router;
+module.exports.router = router;
+module.exports.client = client;

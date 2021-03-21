@@ -16,7 +16,7 @@ mongoose.connect(uri)
 
 // Creating the express app and allowing it to use json
 const app = express();
-const rooms = require('./routes/rooms.js');
+const rooms = require('./routes/rooms.js').router;
 const home = require('./routes/home.js');
 
 // Applying the middlewares
@@ -31,6 +31,17 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Listening at port ${port}`);
 });
+
+// Connecting to the discord client and signing in
+const client = require('./routes/rooms.js').client;
+client.login(process.env.BOT_SECRET);
+client.on('ready', () => {
+    console.log("Discord Client is listening!");
+});
+
+const moderatorClient = require("./discord/moderator");
+moderatorClient.login(process.env.BOT_SECRET);
+
 
 // If the Node process ends, close the Mongoose connection
 process.on('SIGINT', function () {
