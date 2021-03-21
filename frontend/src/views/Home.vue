@@ -94,10 +94,15 @@ export default {
     };
   },
   async mounted() {
+    let apiURL = "http://localhost:3000/api/rooms";
     axios
-      .get("https://makepals.herokuapp.com/api/rooms")
-      .then((response) => (this.rooms = response))
-      .catch((e) => console.log("Unable to fetch data!"));
+      .get(apiURL)
+      .then((res) => {
+        this.rooms = res.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>
