@@ -94,11 +94,10 @@ export default {
     };
   },
   async mounted() {
-    const response = await axios.get("http://localhost:3000/api/rooms", {
-      crossdomain: true,
-    });
-    const results = response.data;
-    this.rooms = results;
+    axios
+      .get("https://makepals.herokuapp.com/api/rooms")
+      .then((response) => (this.rooms = response))
+      .catch((e) => console.log("Unable to fetch data!"));
   },
 };
 </script>
