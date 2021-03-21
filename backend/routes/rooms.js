@@ -2,6 +2,19 @@
 const express = require('express');
 const Joi = require('joi');
 const mongoose = require("mongoose");
+require("dotenv").config();
+
+// Import the discord.js module
+const Discord = require('discord.js');
+
+// Create an instance of a Discord client
+const client = new Discord.Client();
+client.login(process.env.BOT_SECRET);
+
+client.on('ready', () => {
+    console.log("Discord Client is listening!");
+});
+
 
 // Initialize the router
 const router = express.Router();
@@ -25,13 +38,23 @@ const roomSchema = mongoose.Schema({
         enum: ["text", "voice"],
         required: true
     },
+    scope: {
+        type: String,
+        enum: ["temporary", "permanent"],
+        default: "temporary"
+    },
     category: {
         type: String,
-        enum: ["entertainment", "reading", "gaming", "random"]
+        enum: ["entertainment", "reading", "gaming", "random"],
+        required: true
     },
-    channelLink: {
+    channel_link: {
         type: String,
         required: true
+    },
+    created_at: {
+        type: Date,
+        default: Date.now
     }
 });
 
@@ -53,18 +76,48 @@ function validateRoom(room) {
 router.get('/', async (req, res) => {
     const rooms = await Room
         .find()
-        .sort({ name: 1 });
+        .sort({ title: 1 });
     res.send(rooms);
 });
 
 // Create a room 
 router.post('/', async (req, res) => {
     const { error } = validateRoom(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) return res.sendStatus(400).send(error.details[0].message);
+    var link;
     // Create a discord room
-
+    try {
+        let guild = await client.guilds.fetch(process.env.GUILD_ID);
+        let channel = await guild.channels.create(req.body.title, {
+            type: req.body.type,
+            permissionOverwrites: [
+                {
+                    id: guild.roles.everyone, //To make it be seen by a certain role, user an ID instead
+                    allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY'], //Allow permissions
+                }
+            ],
+        });
+        link = await channel.createInvite({ permissions: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY'] });
+        let category = await guild.channels.cache.find(c => c.name == req.body.category && c.type == "category");
+        await channel.setParent(category.id, { lockPermissions: false });
+        if (req.body.type == 'text') {
+            const embed = new Discord.MessageEmbed()
+                .setTitle(`Welcome to ${req.body.title} room!`)
+                .setColor(Math.floor(Math.random() * 16777215).toString(16))
+                .setDescription(req.body.desc);
+            await channel.send(embed);
+        }
+    } catch (e) {
+        res.sendStatus(500).send(e);
+    }
     // Add the room to the database
-    let room = new Room(req.body);
+    let room = new Room({
+        title: req.body.title,
+        desc: req.body.desc,
+        type: req.body.type,
+        category: req.body.category,
+        channel_link: `https://discord.gg/${link.code}`
+    });
     room = await room.save();
     res.send(room);
 });
