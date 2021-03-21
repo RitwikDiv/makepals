@@ -4,6 +4,7 @@
   "description": "Backend for makepals app which takes input from the user and creates a discord channel in the server. It automatics cleans up the purges empty rooms and monitors the behavior of members",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -21,5 +22,8 @@
     "express": "^4.17.1",
     "joi": "^17.4.0",
     "mongoose": "^5.12.1"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
