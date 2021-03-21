@@ -1,10 +1,11 @@
 // Importing the necessary packages
 const express = require('express');
 const mongoose = require("mongoose");
-const config = require('config');
+
+require("dotenv").config();
 
 // Connect Mongoose 
-const uri = `mongodb+srv://${config.get("mongo").username}:${config.get("mongo").password}@sandbox.vlco9.mongodb.net/playground?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@sandbox.vlco9.mongodb.net/playground?retryWrites=true&w=majority`
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useUnifiedTopology", true);
 
@@ -28,4 +29,12 @@ app.use('/', home);
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Listening at port ${port}`);
+});
+
+// If the Node process ends, close the Mongoose connection
+process.on('SIGINT', function () {
+    mongoose.connection.close(function () {
+        console.log('Mongoose disconnected on app termination');
+        process.exit(0);
+    });
 });
