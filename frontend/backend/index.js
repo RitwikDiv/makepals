@@ -22,6 +22,8 @@ const home = require('./routes/home.js');
 // Applying the middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // key=value&key=value
+const morgan = require("morgan");
+app.use(morgan('tiny'));
 
 app.use('/api/rooms', rooms);
 app.use('/', home);

@@ -4,6 +4,7 @@ const Joi = require('joi');
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+
 // Import the discord.js module and create a client
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -14,6 +15,13 @@ const Room = mongoose.model("Room", roomSchema);
 
 // Initialize the router
 const router = express.Router();
+
+router.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('content-type', 'text/plain');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    next();
+});
 
 // Get all rooms
 router.get('/', async (req, res) => {
@@ -26,7 +34,7 @@ router.get('/', async (req, res) => {
 // Create a room 
 router.post('/', async (req, res) => {
     const { error } = validateRoom(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(400).send(`Validation Error: ${error.details[0].message}`);
     var link, discord_channel_id;
     // Create a discord room
     try {

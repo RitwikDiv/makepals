@@ -55,7 +55,7 @@
             <div v-if="room.category == 'random'"><RandomLogo /></div>
             <p class="card-text">{{ room.desc }}</p>
             <a
-              :href="room.channelLink"
+              :href="room.channel_link"
               target="_blank"
               rel="noopener noreferrer"
               class="btn btn-outline-dark btn-sm"
