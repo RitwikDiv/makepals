@@ -1,13 +1,11 @@
-// Loading express
+// Loading required modules
 const express = require('express');
 const Joi = require('joi');
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-// Import the discord.js module
+// Import the discord.js module and create a client
 const Discord = require('discord.js');
-
-// Create an instance of a Discord client
 const client = new Discord.Client();
 client.login(process.env.BOT_SECRET);
 
@@ -16,61 +14,12 @@ client.on('ready', () => {
 });
 
 
-// Initialize the router
-const router = express.Router();
-
-// Creating a schema and model
-const roomSchema = mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-        minLength: 2,
-        maxLength: 50
-    },
-    desc: {
-        type: String,
-        required: true,
-        minLength: 10,
-        maxLength: 150
-    },
-    type: {
-        type: String,
-        enum: ["text", "voice"],
-        required: true
-    },
-    scope: {
-        type: String,
-        enum: ["temporary", "permanent"],
-        default: "temporary"
-    },
-    category: {
-        type: String,
-        enum: ["entertainment", "reading", "gaming", "random"],
-        required: true
-    },
-    channel_link: {
-        type: String,
-        required: true
-    },
-    created_at: {
-        type: Date,
-        default: Date.now
-    }
-});
-
+// Import results from models
+const { roomSchema, validateRoom } = require('../models/rooms');
 const Room = mongoose.model("Room", roomSchema);
 
-
-// Create a joi validation schema function
-function validateRoom(room) {
-    const schema = Joi.object({
-        title: Joi.string().min(2).max(50).required(),
-        desc: Joi.string().min(10).max(150).required(),
-        type: Joi.string().valid("text", "voice"),
-        category: Joi.string().valid("entertainment", "reading", 'gaming', "random")
-    });
-    return schema.validate(room);
-}
+// Initialize the router
+const router = express.Router();
 
 // Get all rooms
 router.get('/', async (req, res) => {
@@ -84,7 +33,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const { error } = validateRoom(req.body);
     if (error) return res.sendStatus(400).send(error.details[0].message);
-    var link;
+    var link, discord_channel_id;
     // Create a discord room
     try {
         let guild = await client.guilds.fetch(process.env.GUILD_ID);
@@ -97,6 +46,7 @@ router.post('/', async (req, res) => {
                 }
             ],
         });
+        discord_channel_id = await channel.id;
         link = await channel.createInvite({ permissions: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY'] });
         let category = await guild.channels.cache.find(c => c.name == req.body.category && c.type == "category");
         await channel.setParent(category.id, { lockPermissions: false });
@@ -116,7 +66,8 @@ router.post('/', async (req, res) => {
         desc: req.body.desc,
         type: req.body.type,
         category: req.body.category,
-        channel_link: `https://discord.gg/${link.code}`
+        channel_link: `https://discord.gg/${link.code}`,
+        discord_channel_id: discord_channel_id
     });
     room = await room.save();
     res.send(room);
@@ -134,7 +85,14 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     const room = await Room.findByIdAndRemove(req.params.id);
     if (!room) return res.status(404).send(`Couldn't find room to delete with id: ${req.params.id}`);
-    res.send(room);
+    try {
+        let guild = await client.guilds.fetch(process.env.GUILD_ID);
+        await guild.channels.cache.get(room.discord_channel_id).delete();
+
+    } catch (e) {
+        res.status(404).send(`Couldn't delete the room with id: ${room.discord_channel_id} due to ${e}`);
+    }
+    await res.send(room);
 });
 
 

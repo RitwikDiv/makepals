@@ -7,6 +7,7 @@ require("dotenv").config();
 // Connect Mongoose 
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@sandbox.vlco9.mongodb.net/playground?retryWrites=true&w=majority`
 mongoose.set("useNewUrlParser", true);
+mongoose.set('useFindAndModify', false);
 mongoose.set("useUnifiedTopology", true);
 
 mongoose.connect(uri)
