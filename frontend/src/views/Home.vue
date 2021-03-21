@@ -75,6 +75,7 @@ import ReadingLogo from "../assets/svgs/category/ReadingLogo.vue";
 import EntertainmentLogo from "../assets/svgs/category/EntertainmentLogo.vue";
 import GamingLogo from "../assets/svgs/category/GamingLogo.vue";
 import RandomLogo from "../assets/svgs/category/RandomLogo.vue";
+const axios = require("axios");
 
 export default {
   name: "Home",
@@ -89,101 +90,15 @@ export default {
   data() {
     return {
       images: { mainImage: require("@/assets/images/mainImage.png") },
-      rooms: [
-        {
-          id: 1,
-          title: "Among us Party",
-          desc:
-            "Tired of playing among us alone with random people on the internet? Join this chat and meet new people while playing the game!",
-          type: "voice",
-          category: "gaming",
-          channelLink:
-            "https://discord.com/channels/812457952052903937/812524975356903495",
-        },
-        {
-          id: 2,
-          title: "Obama's Promised Land",
-          desc:
-            "Join the chat and talk about Barack Obama's views and observations conveyed in the book Promised land!",
-          type: "text",
-          category: "reading",
-          channelLink: "",
-        },
-        {
-          id: 3,
-          title: "WandaVision Discussion",
-          desc:
-            "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
-          type: "voice",
-          category: "entertainment",
-          channelLink: "",
-        },
-        {
-          id: 3,
-          title: "WandaVision Discussion",
-          desc:
-            "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
-          type: "voice",
-          category: "entertainment",
-          channelLink: "",
-        },
-        {
-          id: 3,
-          title: "WandaVision Discussion",
-          desc:
-            "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
-          type: "voice",
-          category: "entertainment",
-          channelLink: "",
-        },
-        {
-          id: 3,
-          title: "WandaVision Discussion",
-          desc:
-            "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
-          type: "voice",
-          category: "entertainment",
-          channelLink: "",
-        },
-        {
-          id: 3,
-          title: "WandaVision Discussion",
-          desc:
-            "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
-          type: "voice",
-          category: "entertainment",
-          channelLink: "",
-        },
-        {
-          id: 3,
-          title: "WandaVision Discussion",
-          desc:
-            "Meet some wonderful marvel nerds and theorize about the latest episode of WandaVision!",
-          type: "voice",
-          category: "entertainment",
-          channelLink: "",
-        },
-        {
-          id: 1,
-          title: "Among us Party",
-          desc:
-            "Tired of playing among us alone with random people on the internet? Join this chat and meet new people while playing the game!",
-          type: "voice",
-          category: "gaming",
-          channelLink:
-            "https://discord.com/channels/812457952052903937/812524975356903495",
-        },
-        {
-          id: 2,
-          title: "Obama's Promised Land",
-          desc:
-            "Join the chat and talk about Barack Obama's views and observations conveyed in the book Promised land!",
-          type: "text",
-          category: "reading",
-          channelLink: "",
-        },
-      ],
+      rooms: [],
     };
+  },
+  async mounted() {
+    const response = await axios.get("http://localhost:3000/api/rooms", {
+      crossdomain: true,
+    });
+    const results = response.data;
+    this.rooms = results;
   },
 };
 </script>
