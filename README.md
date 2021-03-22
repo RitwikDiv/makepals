@@ -77,8 +77,15 @@ This is an example of how to list things you need to use the software and how to
    ```
 2. Install NPM packages
    ```sh
-   npm install
+   npm i
+   cd backend
+   npm i 
+   cd ..
    ```
+3. Run the application
+    ```sh
+    npm run begin
+    ```
 
 
 <!-- ROADMAP -->

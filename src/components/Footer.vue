@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       github: "https://github.com/RitwikDiv/makepals",
-      discord: "",
+      discord: "https://discord.com/channels/823003994435092542",
       twitter: "https://twitter.com/ritwikdiv",
     };
   },

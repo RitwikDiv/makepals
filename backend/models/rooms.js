@@ -13,7 +13,7 @@ const roomSchema = mongoose.Schema({
         type: String,
         required: true,
         minLength: 10,
-        maxLength: 150
+        maxLength: 400
     },
     type: {
         type: String,
