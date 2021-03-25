@@ -126,15 +126,23 @@ export default {
   methods: {
     handleSubmitForm() {
       let apiURL = "http://localhost:3000/api/rooms";
-      console.log(this.roomDetails);
       axios
         .post(apiURL, this.roomDetails, {
           "Access-Control-Allow-Origin": "*",
           "content-type": "text/json",
         })
         .then((res) => {
-          this.roomMessage = `<h5><strong>Your <span class="text-danger">${res.data.category}</span> themed <span class="text-warning">${res.data.title}</span> room is ready! Join
-          <a target="_blank" rel="noopener noreferrer" href="${res.data.channel_link}"> here </a></strong></h5>`;
+          this.roomMessage = `<div class="card mx-auto w-50">
+              <div class="card-header">
+                <strong>Your <span class="text-success">${res.data.category}</span> themed room is ready!</strong>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">${res.data.title}</h5>
+                <p class="card-text text-center">${res.data.desc}.</p>
+                <a target="_blank" rel="noopener noreferrer" href="${res.data.channel_link}" class="btn btn-outline-dark mr-2"><strong>Join the room</strong></a>
+              </div>
+            </div>`;
+          this.res = res.data;
           this.roomDetails = {
             title: "",
             desc: "",
