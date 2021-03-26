@@ -12,18 +12,14 @@
         <div class="col-sm mt-4">
           <h2 class="title-head text-dark">Create a Room!</h2>
           <p class="title-content mr-4">
-            Create a room by filling the form below. Feel free to share the link
-            your friends to let them join. Be kind to people and feel free to
-            add them to your friend's list with their consent (It may be hard to
-            find them once your room closes). What you should know about the
-            channels:
+            Create a room by filling the form below. Share the link with your
+            friends to allow them to join easily. Any kinds of racism, sexism or
+            homophobia will not be tolerated in the server. What you should know
+            about the channels:
           </p>
           <ul class="title-content">
-            <li>All channels are automatically purged within a week!</li>
-            <li>
-              Text Channels are moderated automatically by bots for foul
-              language
-            </li>
+            <li>Inactive channels are purged automatically within 2 days</li>
+            <li>Text channels are monitored for slurs and other bad words</li>
           </ul>
         </div>
       </div>
@@ -56,7 +52,7 @@
           <strong>Category</strong></label
         >
         <select
-          class="col-sm-6 shadow p-2 bg-body rounded border border-light"
+          class="custom-select col-sm-6 shadow bg-body rounded border border-light"
           id="categorySelection"
           v-model="roomDetails.category"
         >
@@ -134,7 +130,7 @@ export default {
         .then((res) => {
           this.roomMessage = `<div class="card mx-auto w-50">
               <div class="card-header">
-                <strong>Your <span class="text-success">${res.data.category}</span> themed room is ready!</strong>
+                <strong>Your <span class="text-warning">${res.data.category}</span> themed room is ready!</strong>
               </div>
               <div class="card-body">
                 <h5 class="card-title">${res.data.title}</h5>
@@ -190,6 +186,7 @@ export default {
 .title-content {
   text-align: start;
   font-weight: 500;
+  font-size: 1.05em;
 }
 
 .illustration {

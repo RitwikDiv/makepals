@@ -1,9 +1,10 @@
 <template>
   <div class="container ml-mr-2">
     <div id="d-flex flex-row">
-      <h4 class="title align-items-center text-dark" id="code">
+      <h2 class="title align-items-center text-dark" id="code">
         Code of Conduct
-      </h4>
+      </h2>
+      <br />
       <br />
       <ul class="mr-3 ml-2">
         <li class="d-flex align-items-center flex-wrap mt-3">
@@ -129,6 +130,7 @@ export default {
 .info {
   text-align: start;
   font-weight: 500;
+  font-size: 1.05em;
 }
 
 .title {
