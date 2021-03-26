@@ -27,7 +27,7 @@ router.use((req, res, next) => {
 router.get('/', async (req, res) => {
     const rooms = await Room
         .find()
-        .sort({ title: 1 });
+        .sort({ created_at: -1 });
     res.send(rooms);
 });
 
@@ -49,7 +49,7 @@ router.post('/', async (req, res) => {
             ],
         });
         discord_channel_id = await channel.id;
-        link = await channel.createInvite({ permissions: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY'] });
+        link = await channel.createInvite({ permissions: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY'], maxAge: 0, maxUses: 0 });
         let category = await guild.channels.cache.find(c => c.name == req.body.category && c.type == "category");
         await channel.setParent(category.id, { lockPermissions: false });
         if (req.body.type == 'text') {

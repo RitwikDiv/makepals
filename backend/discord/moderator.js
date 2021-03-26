@@ -14,7 +14,7 @@ moderatorClient.on('ready', () => {
 // Listen to messages 
 moderatorClient.on("message", (msg) => {
     if (filter.isProfane(msg.content)) {
-        msg.reply("Your message has been deleted due to filty language. Be kind to others in the conversation!");
+        msg.reply("Please refrain from using unkind words in the discord!");
         msg.delete();
     }
 });
