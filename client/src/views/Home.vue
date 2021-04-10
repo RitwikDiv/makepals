@@ -94,7 +94,7 @@ export default {
     };
   },
   async mounted() {
-    let apiURL = "http://localhost:3000/api/rooms";
+    let apiURL = "api/rooms";
     axios
       .get(apiURL)
       .then((res) => {
@@ -131,14 +131,5 @@ export default {
 .title-content {
   text-align: start;
   font-weight: 500;
-}
-
-.card-columns {
-  @include media-breakpoint-only(lg) {
-    column-count: 4;
-  }
-  @include media-breakpoint-only(xl) {
-    column-count: 5;
-  }
 }
 </style>

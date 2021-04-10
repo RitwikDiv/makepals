@@ -1,6 +1,8 @@
 // Importing the necessary packages
 const express = require('express');
 const mongoose = require("mongoose");
+const cors = require('cors');
+const path = require('path');
 
 require("dotenv").config();
 
@@ -24,9 +26,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // key=value&key=value
 const morgan = require("morgan");
 app.use(morgan('tiny'));
+app.use(cors());
 
 app.use('/api/rooms', rooms);
-app.use('/', home);
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static('client/dist'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+    })
+}
 
 // Starting the app and listening to it at a port
 const port = process.env.PORT || 3000;

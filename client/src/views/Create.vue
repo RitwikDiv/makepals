@@ -121,7 +121,7 @@ export default {
   name: "Conduct",
   methods: {
     handleSubmitForm() {
-      let apiURL = "http://localhost:3000/api/rooms";
+      let apiURL = "api/rooms";
       axios
         .post(apiURL, this.roomDetails, {
           "Access-Control-Allow-Origin": "*",
