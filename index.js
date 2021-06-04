@@ -55,15 +55,9 @@ client.on('ready', () => {
 
 const moderatorClient = require('./discord/moderator');
 moderatorClient.login(process.env.BOT_SECRET);
-moderatorClient.on('ready', () => {
-	console.log('Moderator Client is listening!');
-});
 
 const managerClient = require('./discord/manager');
 managerClient.login(process.env.BOT_SECRET);
-managerClient.on('ready', () => {
-	console.log('Manager Client is listening!');
-});
 
 // If the Node process ends, close the Mongoose connection
 process.on('SIGINT', function () {
