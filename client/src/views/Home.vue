@@ -2,15 +2,16 @@
 	<div class="flex flex-col">
 		<div class="flex flex-col sm:flex-row sm:mr-20">
 			<div class="w-full sm:w-3/5 m-auto">
-				<h2 class="text-3xl sm:text-4xl text-left">
+				<h2 class="text-3xl sm:mt-0 sm:text-4xl text-left">
 					Welcome to <span class="title">Pally.</span>
 				</h2>
 				<p class="text-lg font-medium mt-5 text-left leading-loose">
 					Pally is an online community where you can meet
 					<span class="font-bold text-purple">meet new people</span> by creating
-					custom discord rooms. All the inactive rooms are
-					<span class="font-bold text-red">automatically purged</span> at the
-					end of the day.
+					custom discord rooms. You don't need to go through the trouble of
+					creating and maintaining complicated servers. All the inactive rooms
+					are <span class="font-bold text-red">automatically purged</span> at
+					the end of the day.
 				</p>
 				<div
 					id="typed-element"
@@ -62,31 +63,46 @@
 				<img :src="images.mainImage" class="image" alt="People hanging out!" />
 			</div>
 		</div>
-		<div class="h-1 bg-grey-lightest mb-2"></div>
+		<div class="h-px bg-grey-lighter mb-2"></div>
 		<div class="flex flex-col sm:flex-row flex-wrap mb-2">
-			<div class="border-r-0 sm:border-r-4 border-grey-lightest">
+			<div
+				class="sm:mb-0 sm:mr-3 m-2 border-r-0 border-b sm:border-b-0 sm:mb-0 sm:border-r-2 border-grey-lighter"
+			>
 				<button
 					@click.prevent="routeCreate()"
-					class="p-2 m-2 mb-5 sm:mb-0 sm:mr-3 bg-purple-lightest hover:bg-purple rounded hover:text-white font-bold"
+					class="px-2 py-3 mr-8 mb-4 sm:mb-0 bg-purple-lightest hover:bg-purple rounded hover:text-white font-bold"
 				>
 					Create a room
 				</button>
 			</div>
 			<form class="filter-form m-2 flex flex-col sm:flex-row flex-wrap">
-				<div class="mb-2 sm:mb-0">
-					<label class="p-1 mr-3 ml-5 font-semibold" for="channel-type">
-						<strong>Channel</strong></label
+				<div class="mb-2 sm:mb-0 mr-0 sm:mr-5">
+					<label class="p-2 mr-3 font-semibold text-left" for="channel-type">
+						<strong>Channel&nbsp;</strong></label
 					>
-					<select class="p-1 rounded" id="channel-type">
+					<select
+						class="p-2 rounded bg-grey-lightest"
+						id="channel-type"
+						v-model="sort.type"
+					>
+						<option value="any">All Channels</option>
 						<option value="voice">Voice Channel</option>
-						<option value="test">Text Channel</option>
+						<option value="text">Text Channel</option>
 					</select>
 				</div>
-				<div class="mt-2 sm:mt-0">
-					<label class="p-1 mr-3 ml-5 font-semibold " for="channel-category">
+				<div class="ml-2 sm:ml-0 sm:mt-0">
+					<label
+						class="p-2 mr-3 font-semibold text-left "
+						for="channel-category"
+					>
 						<strong>Category</strong></label
 					>
-					<select class="p-1 rounded" id="channel-category">
+					<select
+						class="p-2 rounded bg-grey-lightest"
+						id="channel-category"
+						v-model="sort.category"
+					>
+						<option value="any">All Categories</option>
 						<option value="entertainment">Entertainment</option>
 						<option value="gaming">Gaming</option>
 						<option value="reading">Reading</option>
@@ -95,61 +111,57 @@
 				</div>
 				<button
 					class="ml-5 mt-5 sm:mt-0 mr-3 p-2 rounded font-bold bg-grey-lightest hover:bg-grey-darkest hover:text-white"
+					@click.prevent="sortRooms()"
 				>
-					Search
+					Sort Rooms
 				</button>
 			</form>
 		</div>
-		<div class="h-1 bg-grey-lightest mb-5"></div>
-		<div class="card-columns justify-content-center">
-			<div class="card" v-for="room in rooms" :key="room.id">
-				<div v-if="room.type == 'text'"><TextChannel /></div>
-				<div v-if="room.type == 'voice'"><VoiceChannel /></div>
-				<div class="card-body">
-					<h5 class="card-title">{{ room.title }}</h5>
-					<div v-if="room.category == 'gaming'"><GamingLogo /></div>
-					<div v-if="room.category == 'entertainment'">
-						<EntertainmentLogo />
-					</div>
-					<div v-if="room.category == 'reading'"><ReadingLogo /></div>
-					<div v-if="room.category == 'random'"><RandomLogo /></div>
-					<p class="card-text">{{ room.desc }}</p>
-					<a
-						:href="room.channel_link"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="btn btn-outline-dark btn-sm"
-						><strong>Join</strong></a
-					>
-				</div>
-			</div>
+		<div class="h-px bg-grey-lighter mb-5"></div>
+		<div class="flex flex-row flex-wrap">
+			<RoomCard
+				class="card"
+				v-for="room in sort_rooms"
+				:key="room.id"
+				:id="room.id"
+				:title="room.title"
+				:desc="room.desc"
+				:type="room.type"
+				:category="room.category"
+				:channel_link="room.channel_link"
+			>
+			</RoomCard>
 		</div>
 	</div>
 </template>
 
 <script>
-import TextChannel from '../assets/svgs/channel/TextChannel.vue';
-import VoiceChannel from '../assets/svgs/channel/VoiceChannel.vue';
-import ReadingLogo from '../assets/svgs/category/ReadingLogo.vue';
-import EntertainmentLogo from '../assets/svgs/category/EntertainmentLogo.vue';
-import GamingLogo from '../assets/svgs/category/GamingLogo.vue';
-import RandomLogo from '../assets/svgs/category/RandomLogo.vue';
+import RoomCard from '../components/RoomCard.vue';
 const axios = require('axios');
 import Typed from 'typed.js';
 
 export default {
 	name: 'Home',
 	components: {
-		TextChannel,
-		VoiceChannel,
-		ReadingLogo,
-		EntertainmentLogo,
-		GamingLogo,
-		RandomLogo,
+		RoomCard,
 	},
 	methods: {
 		routeCreate() {
 			this.$router.push('/create');
+		},
+		sortRooms() {
+			if (this.sort.type == 'any' && this.sort.category == 'any')
+				this.sort_rooms = this.rooms;
+			else if (this.sort.type == 'any')
+				this.sort_rooms = this.rooms.filter(
+					(x) => x.category == this.sort.category
+				);
+			else if (this.sort.category == 'any')
+				this.sort_rooms = this.rooms.filter((x) => x.type == this.sort.type);
+			else
+				this.sort_rooms = this.rooms.filter(
+					(x) => x.type == this.sort.type && x.category == this.sort.category
+				);
 		},
 	},
 	data() {
@@ -158,6 +170,11 @@ export default {
 			discord: 'https://discord.com/channels/823003994435092542',
 			images: { mainImage: require('@/assets/images/home-image.svg') },
 			rooms: [],
+			sort_rooms: [],
+			sort: {
+				type: 'any',
+				category: 'any',
+			},
 		};
 	},
 	async mounted() {
@@ -166,6 +183,7 @@ export default {
 			.get(apiURL)
 			.then((res) => {
 				this.rooms = res.data;
+				this.sort_rooms = this.rooms;
 			})
 			.catch((error) => {
 				console.log(error);
