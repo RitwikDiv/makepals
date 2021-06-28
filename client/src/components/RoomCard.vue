@@ -1,6 +1,7 @@
 <template>
 	<button
-		class="shadow hover:shadow-lg hover:bg-grey-darkest hover:text-blue-lightest m-2 w-full sm:w-80 rounded-lg h-auto"  @click.prevent="channelRedirect()"
+		class="w-full h-auto m-2 rounded-lg shadow hover:shadow-lg hover:bg-grey-darkest hover:text-blue-lightest sm:w-80"
+		@click.prevent="channelRedirect()"
 		:key="id"
 	>
 		<svg
@@ -32,35 +33,37 @@
 			/>
 		</svg>
 		<div class="mt-2 mb-3">
-			<h3 class="text-lg font-bold text-center mb-1">
+			<h3 class="mb-1 text-lg font-bold text-center">
 				{{ title }}
 			</h3>
-			<p class="text-md font-regular leading-loose text-center ml-5 mr-5 break-words">
+			<p
+				class="ml-5 mr-5 leading-loose text-center break-words text-md font-regular"
+			>
 				{{ desc }}
 			</p>
 		</div>
 		<div class="mb-3">
 			<div
 				v-if="category == 'gaming'"
-				class="tracking-wide text-purple font-bold text-sm uppercase"
+				class="text-sm font-bold tracking-wide uppercase text-purple"
 			>
 				Gaming
 			</div>
 			<div
 				v-if="category == 'entertainment'"
-				class="tracking-wide text-orange font-bold text-sm uppercase"
+				class="text-sm font-bold tracking-wide uppercase text-orange"
 			>
 				Entertainment
 			</div>
 			<div
 				v-if="category == 'reading'"
-				class="tracking-wide text-green font-bold text-sm uppercase"
+				class="text-sm font-bold tracking-wide uppercase text-green"
 			>
 				Reading
 			</div>
 			<div
 				v-if="category == 'random'"
-				class="tracking-wide text-red font-bold text-sm uppercase"
+				class="text-sm font-bold tracking-wide uppercase text-red"
 			>
 				Random
 			</div>
