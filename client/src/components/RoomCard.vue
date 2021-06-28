@@ -1,6 +1,6 @@
 <template>
 	<button
-		class="w-full h-auto m-2 rounded-lg shadow hover:shadow-lg hover:bg-grey-darkest hover:text-blue-lightest sm:w-80"
+		class="w-full h-auto m-2 rounded-lg shadow hover:shadow-lg hover:bg-purple-lightest sm:w-80"
 		@click.prevent="channelRedirect()"
 		:key="id"
 	>
@@ -37,7 +37,7 @@
 				{{ title }}
 			</h3>
 			<p
-				class="ml-5 mr-5 leading-loose text-center break-words text-md font-regular"
+				class="ml-5 mr-5 font-medium leading-loose text-center break-words text-md"
 			>
 				{{ desc }}
 			</p>
@@ -45,25 +45,25 @@
 		<div class="mb-3">
 			<div
 				v-if="category == 'gaming'"
-				class="text-sm font-bold tracking-wide uppercase text-purple"
+				class="text-sm font-extrabold tracking-wide uppercase text-purple"
 			>
 				Gaming
 			</div>
 			<div
 				v-if="category == 'entertainment'"
-				class="text-sm font-bold tracking-wide uppercase text-orange"
+				class="text-sm font-extrabold tracking-wide uppercase text-orange"
 			>
 				Entertainment
 			</div>
 			<div
 				v-if="category == 'reading'"
-				class="text-sm font-bold tracking-wide uppercase text-green"
+				class="text-sm font-extrabold tracking-wide uppercase text-green"
 			>
 				Reading
 			</div>
 			<div
 				v-if="category == 'random'"
-				class="text-sm font-bold tracking-wide uppercase text-red"
+				class="text-sm font-extrabold tracking-wide uppercase text-red"
 			>
 				Random
 			</div>
