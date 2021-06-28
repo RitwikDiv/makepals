@@ -1,23 +1,24 @@
 <template>
 	<div class="flex flex-col">
 		<div class="flex flex-col sm:flex-row sm:mr-20">
-			<div class="w-full sm:w-3/5 m-auto">
-				<h2 class="text-3xl sm:mt-0 sm:text-4xl text-left">
+			<div class="w-full m-auto sm:w-3/5">
+				<h2 class="text-3xl font-extrabold text-left sm:mt-0 sm:text-4xl">
 					Welcome to <span class="title">Pally.</span>
 				</h2>
-				<p class="text-lg font-medium mt-5 text-left leading-loose">
+				<p class="mt-5 text-lg font-medium leading-loose text-left">
 					Pally is an online community where you can meet
 					<span class="font-bold text-purple">meet new people</span> by creating
-					custom discord rooms. You don't need to go through the trouble of
-					creating and maintaining complicated servers. All the inactive rooms
-					are <span class="font-bold text-red">automatically purged</span> at
-					the end of the day.
+					custom public discord rooms. You don't need to go through the trouble
+					of creating and maintaining complicated servers. All the inactive
+					rooms are
+					<span class="font-bold text-red">automatically purged</span> at the
+					end of the day.
 				</p>
 				<div
 					id="typed-element"
-					class="underline font-semibold text-left mt-5"
+					class="mt-5 font-semibold text-left underline"
 				></div>
-				<div id="social-links" class="mt-10 flex flex-row justify-start">
+				<div id="social-links" class="flex flex-row justify-start mt-10">
 					<a
 						class="icon"
 						:href="github"
@@ -28,7 +29,7 @@
 							width="18"
 							height="18"
 							fill="black"
-							class="bi bi-github mr-3"
+							class="mr-3 bi bi-github"
 							viewBox="0 0 16 16"
 						>
 							<path
@@ -45,7 +46,7 @@
 							width="18"
 							height="18"
 							fill="#7289da"
-							class="bi bi-discord mr-3"
+							class="mr-3 bi bi-discord"
 							viewBox="0 0 16 16"
 						>
 							<path
@@ -57,26 +58,24 @@
 					></a>
 				</div>
 			</div>
-			<div
-				class="ml-2 sm:ml-10 w-4/5 h-4/5 flex justify-around sm:w-2/5 sm:h-1/2"
-			>
+			<div class="w-3/4 m-auto ml-2 sm:ml-10 h-1/2 md:w-2/5 md:h-2/5">
 				<img :src="images.mainImage" class="image" alt="People hanging out!" />
 			</div>
 		</div>
-		<div class="h-px bg-grey-lighter mb-2"></div>
-		<div class="flex flex-col sm:flex-row flex-wrap mb-2">
+		<div class="h-px mb-2 bg-grey-lighter"></div>
+		<div class="flex flex-col flex-wrap mb-2 sm:flex-row">
 			<div
-				class="sm:mb-0 sm:mr-3 m-2 border-r-0 border-b sm:border-b-0 sm:mb-0 sm:border-r-2 border-grey-lighter"
+				class="m-2 border-b border-r-0 sm:mb-0 sm:mr-3 sm:border-b-0 sm:border-r-2 border-grey-lighter"
 			>
 				<button
 					@click.prevent="routeCreate()"
-					class="px-2 py-3 mr-8 mb-4 sm:mb-0 bg-purple-lightest hover:bg-purple rounded hover:text-white font-bold"
+					class="px-2 py-3 mb-4 mr-8 font-bold rounded sm:mb-0 bg-purple-lightest hover:bg-purple hover:text-white"
 				>
 					Create a room
 				</button>
 			</div>
-			<form class="filter-form m-2 flex flex-col sm:flex-row flex-wrap">
-				<div class="mb-2 sm:mb-0 mr-0 sm:mr-5">
+			<form class="flex flex-col flex-wrap m-2 filter-form sm:flex-row">
+				<div class="mb-2 mr-0 sm:mb-0 sm:mr-5">
 					<label class="p-2 mr-3 font-semibold text-left" for="channel-type">
 						<strong>Channel&nbsp;</strong></label
 					>
@@ -110,14 +109,20 @@
 					</select>
 				</div>
 				<button
-					class="ml-5 mt-5 sm:mt-0 mr-3 p-2 rounded font-bold bg-grey-lightest hover:bg-grey-darkest hover:text-white"
+					class="p-2 mt-5 ml-5 mr-3 font-bold rounded sm:mt-0 bg-grey-lightest hover:bg-grey-darkest hover:text-white"
 					@click.prevent="sortRooms()"
 				>
 					Sort Rooms
 				</button>
 			</form>
 		</div>
-		<div class="h-px bg-grey-lighter mb-5"></div>
+		<div class="h-px mb-5 bg-grey-lighter"></div>
+		<div class="mt-5" v-if="sort_rooms.length == 0">
+			<p class="text-lg font-bold">
+				Can't find what you are looking for? Create one!
+			</p>
+		</div>
+
 		<div class="flex flex-row flex-wrap">
 			<RoomCard
 				class="card"
@@ -168,7 +173,7 @@ export default {
 		return {
 			github: 'https://github.com/RitwikDiv/makepals',
 			discord: 'https://discord.com/channels/823003994435092542',
-			images: { mainImage: require('@/assets/images/home-image.svg') },
+			images: { mainImage: require('@/assets/images/home-image-alt.svg') },
 			rooms: [],
 			sort_rooms: [],
 			sort: {
@@ -206,7 +211,7 @@ export default {
 				'Find people to chat about how your lives are going!!',
 				'Find people to chat about the latest new trends!! ',
 			],
-			typeSpeed: 80,
+			typeSpeed: 90,
 			smartBackspace: true,
 			showCursor: false,
 			loop: true,
