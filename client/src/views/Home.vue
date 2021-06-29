@@ -1,7 +1,7 @@
 <template>
 	<div class="flex flex-col">
 		<div class="flex flex-col mt-10 sm:flex-row sm:mt-0 sm:mr-20">
-			<div class="w-full m-auto sm:w-3/5">
+			<div class="w-full m-auto sm:w-3/4 md:w-3/5">
 				<h2 class="text-3xl font-extrabold text-left sm:mt-0 sm:text-4xl">
 					Welcome to <span class="title">Pally.</span>
 				</h2>
@@ -58,7 +58,7 @@
 					></a>
 				</div>
 			</div>
-			<div class="w-3/4 m-auto ml-2 sm:ml-10 h-1/2 md:w-2/5 md:h-2/5">
+			<div class="w-3/4 m-auto h-1/2 md:w-2/5 md:h-2/5">
 				<img :src="images.mainImage" class="image" alt="People hanging out!" />
 			</div>
 		</div>

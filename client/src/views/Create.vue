@@ -37,7 +37,7 @@
 			</p>
 			<RoomCard
 				v-if="room != null"
-				class="m-auto mt-5 mb-5"
+				class="m-auto mt-2 mb-5"
 				:key="room.id"
 				:id="room.id"
 				:title="room.title"
@@ -140,12 +140,6 @@
 						/>
 					</div>
 				</div>
-				<div class="w-full mb-5">
-					<input type="checkbox" class="mr-5" v-model="checked" />
-					<label class="font-bold text-grey-dark" for="categorySelection">
-						I have read and I agree with the code of conduct</label
-					>
-				</div>
 				<button
 					type="button"
 					class="px-3 py-2 rounded bg-purple-lightest hover:bg-purple hover:text-white"
@@ -177,14 +171,7 @@ export default {
 				category: 'random',
 			},
 			room: null,
-			checked: false,
 			validated: false,
-			btn: {
-				activeClass:
-					'p-2 bg-purple-light text-grey-darkest hover:bg-purple-dark hover:text-white',
-				errorClass: 'disabled',
-			},
-			roomMessage: `<h5><strong>You haven't created any rooms yet!</strong></h5>`,
 		};
 	},
 	methods: {

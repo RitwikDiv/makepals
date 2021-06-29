@@ -1,6 +1,6 @@
 <template>
 	<button
-		class="w-full h-auto m-2 rounded-lg shadow hover:shadow-lg hover:bg-purple-lightest sm:w-80"
+		class="w-full h-auto m-2 rounded-lg shadow hover:shadow-lg hover:bg-purple-lightest md:w-80"
 		@click.prevent="channelRedirect()"
 		:key="id"
 	>
@@ -23,7 +23,7 @@
 			height="18"
 			v-if="type == 'voice'"
 			class="m-1 mt-2"
-			fill="orange"
+			fill="purple"
 			viewBox="0 0 16 16"
 		>
 			<path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
