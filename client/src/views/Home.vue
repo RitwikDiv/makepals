@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-col">
-		<div class="flex flex-col sm:flex-row sm:mr-20">
+		<div class="flex flex-col mt-10 sm:flex-row sm:mt-0 sm:mr-20">
 			<div class="w-full m-auto sm:w-3/5">
 				<h2 class="text-3xl font-extrabold text-left sm:mt-0 sm:text-4xl">
 					Welcome to <span class="title">Pally.</span>
@@ -119,7 +119,7 @@
 		<div class="h-px mb-5 bg-grey-lighter"></div>
 		<div class="mt-5" v-if="sort_rooms.length == 0">
 			<p class="text-lg font-bold">
-				Can't find what you are looking for? Create one!
+				Can't find what you are looking for? Create a room!
 			</p>
 		</div>
 
