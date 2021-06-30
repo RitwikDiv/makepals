@@ -25,7 +25,7 @@
 			<img
 				:src="images.createImage"
 				v-if="room === null"
-				class="w-1/2 mb-5 h-1/2"
+				class="w-full mb-5 sm:w-3/5 h-1/2"
 				alt="People hanging out!"
 			/>
 			<p

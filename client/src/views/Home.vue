@@ -1,11 +1,13 @@
 <template>
 	<div class="flex flex-col">
 		<div class="flex flex-col mt-10 sm:flex-row sm:mt-0 sm:mr-20">
-			<div class="w-full m-auto sm:w-3/4 md:w-3/5">
+			<div class="w-full m-auto sm:w-3/5 md:w-3/5">
 				<h2 class="text-3xl font-extrabold text-left sm:mt-0 sm:text-4xl">
 					Welcome to <span class="title">Pally.</span>
 				</h2>
-				<p class="mt-5 text-lg font-medium leading-loose text-left">
+				<p
+					class="mt-5 text-lg font-medium leading-loose text-left text-justify"
+				>
 					Pally is an online community where you can meet
 					<span class="font-bold text-purple">meet new people</span> by creating
 					custom public discord rooms. You don't need to go through the trouble
@@ -58,7 +60,7 @@
 					></a>
 				</div>
 			</div>
-			<div class="w-3/4 m-auto h-1/2 md:w-2/5 md:h-2/5">
+			<div class="w-full m-auto ml-0 md:ml-15 h-1/2 md:w-2/5">
 				<img :src="images.mainImage" class="image" alt="People hanging out!" />
 			</div>
 		</div>
