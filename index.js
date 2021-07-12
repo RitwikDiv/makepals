@@ -22,7 +22,7 @@ mongoose
 // Creating the express app and allowing it to use json
 const app = express();
 const rooms = require('./routes/rooms.js').router;
-const home = require('./routes/home.js');
+// const home = require('./routes/home.js');
 
 // Applying the middlewares
 app.use(express.json());
@@ -60,10 +60,11 @@ const managerClient = require('./discord/manager');
 managerClient.login(process.env.BOT_SECRET);
 
 // Prevent heroku from sleeping
-var http = require('http');
-setInterval(function () {
-	http.get('http://makepals.herokuapp.com');
-}, 1000 * 60 * 15); // every 2 hours
+var axios = require('axios');
+setInterval(async () => {
+	console.log('Keeping the app alive');
+	await axios.get('http://makepals.herokuapp.com');
+}, 1000 * 60 * 15); // every 15 mins
 
 // If the Node process ends, close the Mongoose connection
 process.on('SIGINT', function () {
