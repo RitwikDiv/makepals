@@ -8,31 +8,22 @@ const Room = mongoose.model('Room', roomSchema);
 
 require('dotenv').config();
 
-managerClient.on('ready', () => {
+managerClient.on('ready', async () => {
 	console.log('Cleaning is active!');
-	setInterval(async () => {
+	var loop = setInterval(async () => {
 		const channels = await getOldChannels();
 		const badDbIds = [];
 		const badDiscordIds = [];
 		for (let channel of channels) {
-			let channelStatus = undefined;
-			if (channel.type == 'text') {
-				channelStatus = await isTextChannelActive(channel);
-				if (channelStatus == false) {
-					badDbIds.push(channel['_id']);
-					badDiscordIds.push(channel['discord_channel_id']);
-				}
-			} else if (channel.type == 'voice') {
-				channelStatus = await isVoiceChannelActive(channel);
-				if (channelStatus == false) {
-					badDbIds.push(channel['_id']);
-					badDiscordIds.push(channel['discord_channel_id']);
-				}
+			channelStatus = await isChannelActive(channel);
+			if (channelStatus == false) {
+				badDbIds.push(channel['_id']);
+				badDiscordIds.push(channel['discord_channel_id']);
 			}
 		}
 		await manageDBDelete(badDbIds);
 		await manageDiscordDelete(badDiscordIds);
-	}, 24 * 60 * 60 * 1000);
+	}, 15 * 60 * 1000);
 });
 
 async function getOldChannels() {
@@ -40,33 +31,22 @@ async function getOldChannels() {
 	return rooms;
 }
 
-async function isTextChannelActive(dbChannel) {
+async function isChannelActive(dbChannel) {
 	let status = true;
-	var threeDays = 2 * 24 * 60 * 60 * 1000;
+	var oneDay = 2 * 24 * 60 * 60 * 1000;
 	let guild = await managerClient.guilds.fetch(process.env.GUILD_ID);
 	let channel = await guild.channels.cache.get(dbChannel.discord_channel_id);
 	await channel.messages
 		.fetch({ limit: 1 })
 		.then((messages) => {
 			let lastMessage = messages.first();
-			if (Date.now() - lastMessage.createdAt >= threeDays) {
+			if (Date.now() - lastMessage.createdAt >= oneDay) {
 				status = false;
 			}
 		})
 		.catch(() => {
 			status = true;
 		});
-	return status;
-}
-
-async function isVoiceChannelActive(dbChannel) {
-	// Check number of people currently in the chat
-	let status = true;
-	let guild = await managerClient.guilds.fetch(process.env.GUILD_ID);
-	let channel = await guild.channels.cache.get(dbChannel.discord_channel_id);
-	if (channel.members.size < 1) {
-		status = false;
-	}
 	return status;
 }
 

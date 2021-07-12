@@ -59,6 +59,12 @@ moderatorClient.login(process.env.BOT_SECRET);
 const managerClient = require('./discord/manager');
 managerClient.login(process.env.BOT_SECRET);
 
+// Prevent heroku from sleeping
+var http = require('http');
+setInterval(function () {
+	http.get('http://makepals.herokuapp.com');
+}, 1000 * 60 * 15); // every 2 hours
+
 // If the Node process ends, close the Mongoose connection
 process.on('SIGINT', function () {
 	mongoose.connection.close(function () {
